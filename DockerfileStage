@@ -1,10 +1,10 @@
-FROM maven:3.5-jdk-8 as buildstage
+FROM maven:3.8-jdk-11 as buildstage
 RUN mkdir /opt/notes/
 WORKDIR /opt/notes
 RUN git clone https://github.com/callicoder/spring-boot-mysql-rest-api-tutorial.git /opt/notes
 RUN mvn package -Dmaven.test.skip=true
 
-FROM openjdk:8-jdk-alpine
+FROM adoptopenjdk/openjdk11:alpine
 RUN addgroup -S notes && adduser -S notes -G notes
 RUN mkdir /opt/notes/
 RUN chown -R notes:notes /opt/notes
